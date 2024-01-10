@@ -18,7 +18,7 @@ return {
   },
 
   -- Set colorscheme to use
-  colorscheme = "astrodark",
+  colorscheme = "material",
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
@@ -52,8 +52,20 @@ return {
     servers = {
       -- "pyright"
     },
+    config = {
+      gopls = {
+        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+        root_dir = require("astronvim.utils.lsp").root_pattern("go.work", "go.mod", ".git"),
+        settings = {
+          -- gopls = {
+          completeUnimported = true,
+          usePlaceholders = true,
+          analyses = { unusedparams = true },
+          -- },
+        },
+      },
+    },
   },
-
   -- Configure require("lazy").setup() options
   lazy = {
     defaults = { lazy = true },
@@ -69,6 +81,7 @@ return {
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
   polish = function()
+    vim.g.material_style = "palenight"
     -- Set up custom filetypes
     -- vim.filetype.add {
     --   extension = {
